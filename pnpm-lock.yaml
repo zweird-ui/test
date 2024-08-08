@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      typescript:
-        specifier: ^5.0.0
-        version: 5.5.4
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.7
@@ -21,6 +17,9 @@ importers:
       tsup:
         specifier: ^8.2.4
         version: 8.2.4(typescript@5.5.4)
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
 
 packages:
 
