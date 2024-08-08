@@ -9,15 +9,13 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "tsup index.ts --format cjs,esm --dts"
+		"build": "tsup index.ts --format cjs,esm --dts",
+		"release": "pnpm run build && changeset publish"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.7",
 		"@types/bun": "latest",
 		"tsup": "^8.2.4",
 		"typescript": "^5.5.4"
-	},
-	"peerDependencies": {
-		"typescript": "^5.0.0"
 	}
 }
