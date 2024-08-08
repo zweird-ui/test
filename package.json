@@ -12,7 +12,7 @@
 	"scripts": {
 		"build": "tsup index.ts --format cjs,esm --dts",
 		"version": "changeset version",
-		"release": "changeset publish",
+		"release": "pnpm run build && changeset publish",
 		"version:canary": "changeset version --snapshot canary",
 		"release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
 	},

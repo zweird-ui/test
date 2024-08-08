@@ -1,67 +1,34 @@
-name: Release
-
+name: Publish
 on:
   push:
     branches:
       - main
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  release:
-    name: Release
+  publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "pnpm"
 
-      - name: Install dependencies
-        uses: pnpm/action-setup@v4
-
-      - name: Install
-        run: pnpm install
-
-      - name: Build
-        run: pnpm build
-
-      - name: Setup Git User
-        shell: bash
-        run: |
-          git config --global user.email "zweir.dd@gmail.com"
-          git config --global user.name "Zweird"
-
-      - name: Create Release Pull Request or Publish to NPM
+      - run: pnpm install
+      - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm release
-          title: "ci(changesets): :package: version packages"
-          commit: "ci(changesets): version packages"
-          setupGitUser: false
+          publish: pnpm run release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Log published
-        run: echo "${{ steps.changesets.outputs.published }}"
-
-      - name: Sync files from canary to main branch if a publish happens
-        if: steps.changesets.outputs.published == 'true'
-        run: |
-          curl -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/owner/repo/dispatches \
-            -d '{"event_type":"sync-canary-to-main"}'
-
-      - name: Create canary release
-        if: steps.changesets.outputs.published != 'true'
-        run: |
-          git checkout main
-          pnpm version:canary
-          pnpm release:canary
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
