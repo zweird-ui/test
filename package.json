@@ -3,14 +3,17 @@
 	"module": "index.ts",
 	"license": "MIT",
 	"type": "module",
-	"version": "0.0.2",
+	"version": "0.0.0-canary-20240808133833",
 	"main": "index.ts",
 	"files": [
 		"dist"
 	],
 	"scripts": {
 		"build": "tsup index.ts --format cjs,esm --dts",
-		"release": "pnpm run build && changeset publish"
+		"release": "pnpm run build && changeset publish",
+		"version": "changeset version",
+		"version:canary": "changeset version --snapshot canary",
+		"release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.7",
