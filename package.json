@@ -9,7 +9,11 @@
 		"dist"
 	],
 	"scripts": {
-		"build": "tsup index.ts --format cjs,esm --dts"
+		"build": "tsup index.ts --format cjs,esm --dts",
+		"version": "changeset version",
+		"release": "changeset publish",
+		"version:canary": "changeset version --snapshot canary",
+		"release:canary": "changeset publish --snapshot --no-git-tag --tag canary"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.7",
