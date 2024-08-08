@@ -5,6 +5,7 @@
 	"type": "module",
 	"version": "0.0.2",
 	"main": "index.ts",
+	"packageManager": "pnpm@9.7.0",
 	"files": [
 		"dist"
 	],
