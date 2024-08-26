@@ -1,5 +1,11 @@
 # @zweird-ui/test
 
+## 0.0.0
+
+### Minor Changes
+
+- 37ca0fd: add cube function
+
 ## 0.0.0-canary-20240808180149
 
 ### Minor Changes
