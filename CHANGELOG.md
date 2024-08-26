@@ -1,5 +1,12 @@
 # @zweird-ui/test
 
+## 1.1.0
+
+### Minor Changes
+
+- 4addf23: add root function
+- 4b396a8: add power function
+
 ## 0.0.0
 
 ### Minor Changes
