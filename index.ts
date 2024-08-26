@@ -11,3 +11,5 @@ export const square = (a: number) => a * a;
 export const cube = (a: number) => a * a * a;
 
 export const power = (a: number, b: number) => a ** b;
+
+export const root = (a: number, b: number) => a ** (1 / b);
